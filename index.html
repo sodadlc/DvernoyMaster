@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дверной Мастер — двери и замки</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#14120d;
+    --panel:#1c1810;
+    --panel-2:#242015;
+    --brass:#c39a5b;
+    --brass-soft:#8e7040;
+    --steel:#6e7a82;
+    --paper:#efe7d6;
+    --paper-dim:#a99c82;
+    --line:#332b1c;
+    --rust:#9c4b3a;
+    --font-display:'Big Shoulders Display', 'Arial Narrow', sans-serif;
+    --font-body:'Inter', system-ui, -apple-system, sans-serif;
+    --max:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--font-body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;}
+  h1,h2,h3{
+    font-family:var(--font-display);
+    font-weight:700;
+    line-height:1.02;
+    margin:0;
+    letter-spacing:0.005em;
+  }
+  p{margin:0;}
+  ul{margin:0;padding:0;list-style:none;}
+  button{font-family:inherit;}
+
+  :focus-visible{
+    outline:2px solid var(--brass);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(20,18,13,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 0;
+  }
+  .brand{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:1.5rem;
+    letter-spacing:0.01em;
+    color:var(--paper);
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .brand span{color:var(--brass);}
+  .nav-links{
+    display:flex;
+    gap:32px;
+    align-items:center;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color:var(--paper-dim);
+    font-size:0.95rem;
+    transition:color 0.15s ease;
+  }
+  .nav-links a:hover{color:var(--paper);}
+  .nav-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+  }
+  .nav-phone{
+    font-size:0.95rem;
+    color:var(--paper);
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:11px 22px;
+    font-size:0.95rem;
+    font-weight:600;
+    text-decoration:none;
+    border-radius:2px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--brass);
+    color:#1a1610;
+  }
+  .btn-primary:hover{background:#d3ab6c;}
+  .btn-ghost{
+    background:transparent;
+    color:var(--paper);
+    border-color:var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--brass);color:var(--brass);}
+  .menu-toggle{
+    display:none;
+    background:none;
+    border:1px solid var(--line);
+    color:var(--paper);
+    width:40px;
+    height:40px;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+  }
+  .menu-toggle svg{width:20px;height:20px;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:64px 0 90px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr 440px;
+    gap:56px;
+    align-items:center;
+  }
+  .hero-eyebrow{
+    color:var(--brass);
+    font-size:0.95rem;
+    font-weight:600;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 5vw, 4.4rem);
+    color:var(--paper);
+    max-width:12ch;
+  }
+  .hero p.lead{
+    margin-top:22px;
+    max-width:46ch;
+    font-size:1.1rem;
+    color:var(--paper-dim);
+  }
+  .hero-actions{
+    display:flex;
+    gap:14px;
+    margin-top:34px;
+    flex-wrap:wrap;
+  }
+  .hero-note{
+    margin-top:22px;
+    font-size:0.9rem;
+    color:var(--paper-dim);
+  }
+  .hero-note strong{color:var(--paper);font-weight:600;}
+  .hero-art{
+    justify-self:center;
+    width:100%;
+  }
+  .master-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    width:100%;
+  }
+  .master-grid figure{
+    margin:0;
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .master-grid img,
+  .master-grid svg{
+    width:100%;
+    height:100%;
+    display:block;
+  }
+  .master-grid figcaption{
+    position:absolute;
+    left:0;right:0;bottom:0;
+    padding:10px 12px;
+    font-size:0.8rem;
+    color:var(--paper);
+    background:linear-gradient(to top, rgba(20,18,13,0.88), rgba(20,18,13,0));
+  }
+  .master-grid figcaption strong{
+    display:block;
+    color:var(--brass);
+    font-size:0.7rem;
+    font-weight:600;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    margin-bottom:2px;
+  }
+  .master-grid .tall{grid-row:span 2;}
+  .master-tall-wrap{aspect-ratio:1/1.15;}
+  .master-square-wrap{aspect-ratio:1/1;}
+
+  .reveal{opacity:0;transform:translateY(14px);}
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{animation:rise 0.7s ease forwards;}
+    .r1{animation-delay:0.05s;}
+    .r2{animation-delay:0.18s;}
+    .r3{animation-delay:0.3s;}
+    .r4{animation-delay:0.42s;}
+    @keyframes rise{
+      to{opacity:1;transform:translateY(0);}
+    }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;}
+  }
+
+  /* ---------- section shell ---------- */
+  section{
+    padding:84px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    align-items:end;
+    margin-bottom:52px;
+  }
+  .section-head h2{
+    font-size:clamp(2rem, 3.4vw, 2.8rem);
+    color:var(--paper);
+  }
+  .section-head p{
+    color:var(--paper-dim);
+    max-width:44ch;
+    font-size:1.02rem;
+  }
+
+  /* ---------- services ---------- */
+  .service-row{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:32px;
+    padding:30px 0;
+    border-top:1px solid var(--line);
+  }
+  .service-row:last-child{border-bottom:none;}
+  .service-icon{
+    width:38px;height:38px;
+    color:var(--brass);
+    margin-bottom:12px;
+  }
+  .service-row h3{
+    font-size:1.5rem;
+    color:var(--paper);
+    font-weight:700;
+  }
+  .service-row .desc{
+    max-width:56ch;
+    color:var(--paper-dim);
+    font-size:1rem;
+    align-self:center;
+  }
+
+  /* ---------- process ---------- */
+  .process-list{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:0;
+    position:relative;
+  }
+  .process-step{
+    padding:0 22px 0 0;
+    position:relative;
+  }
+  .process-step:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    top:15px;
+    right:0;
+    width:22px;
+    height:1px;
+    background:var(--brass-soft);
+  }
+  .process-num{
+    font-family:var(--font-display);
+    font-size:2.1rem;
+    color:var(--brass);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .process-step h3{
+    font-size:1.15rem;
+    color:var(--paper);
+    margin-bottom:10px;
+  }
+  .process-step p{
+    color:var(--paper-dim);
+    font-size:0.96rem;
+    max-width:32ch;
+  }
+
+  /* ---------- catalog ---------- */
+  .catalog-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+  }
+  .door-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .door-card svg{
+    width:100%;
+    height:180px;
+    color:var(--brass);
+  }
+  .door-card h3{
+    font-size:1.3rem;
+    color:var(--paper);
+  }
+  .door-card .spec{
+    color:var(--paper-dim);
+    font-size:0.92rem;
+    min-height:2.8em;
+  }
+  .door-card .price-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:auto;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+  }
+  .price{
+    font-family:var(--font-display);
+    font-size:1.3rem;
+    color:var(--brass);
+    font-weight:700;
+  }
+  .link-ghost{
+    text-decoration:none;
+    color:var(--paper-dim);
+    font-size:0.9rem;
+    border-bottom:1px solid var(--line);
+    transition:color 0.15s ease, border-color 0.15s ease;
+  }
+  .link-ghost:hover{color:var(--brass);border-color:var(--brass);}
+
+  /* ---------- values ---------- */
+  .values-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:36px;
+  }
+  .value-item h3{
+    font-size:1.2rem;
+    color:var(--paper);
+    margin-bottom:10px;
+  }
+  .value-item p{
+    color:var(--paper-dim);
+    font-size:0.98rem;
+    max-width:36ch;
+  }
+  .value-mark{
+    width:22px;height:22px;
+    color:var(--brass);
+    margin-bottom:16px;
+  }
+
+  /* ---------- contact ---------- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:340px 1fr;
+    gap:40px;
+  }
+  .plate{
+    background:var(--panel);
+    border:1px solid var(--brass-soft);
+    padding:32px 28px;
+  }
+  .plate h3{
+    font-size:1.3rem;
+    color:var(--brass);
+    margin-bottom:22px;
+  }
+  .plate-row{
+    padding:14px 0;
+    border-top:1px solid var(--line);
+  }
+  .plate-row:first-of-type{border-top:none;}
+  .plate-label{
+    font-size:0.82rem;
+    color:var(--paper-dim);
+    margin-bottom:4px;
+  }
+  .plate-value{
+    font-size:1.02rem;
+    color:var(--paper);
+  }
+  form{
+    display:grid;
+    gap:18px;
+  }
+  .form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  label{
+    display:block;
+    font-size:0.86rem;
+    color:var(--paper-dim);
+    margin-bottom:7px;
+  }
+  input, textarea{
+    width:100%;
+    background:var(--panel);
+    border:1px solid var(--line);
+    color:var(--paper);
+    font-family:var(--font-body);
+    font-size:0.98rem;
+    padding:12px 14px;
+    border-radius:2px;
+  }
+  input:focus, textarea:focus{
+    border-color:var(--brass);
+    outline:none;
+  }
+  textarea{resize:vertical;min-height:110px;}
+  .form-note{
+    font-size:0.86rem;
+    color:var(--paper-dim);
+  }
+  .form-status{
+    font-size:0.92rem;
+    color:var(--brass);
+    display:none;
+  }
+  .form-status.show{display:block;}
+
+  /* ---------- footer ---------- */
+  footer{
+    padding:36px 0;
+  }
+  .footer-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .footer-row .brand{font-size:1.15rem;}
+  .footer-links{
+    display:flex;
+    gap:24px;
+  }
+  .footer-links a{
+    text-decoration:none;
+    color:var(--paper-dim);
+    font-size:0.88rem;
+  }
+  .footer-links a:hover{color:var(--paper);}
+  .footer-copy{
+    color:var(--paper-dim);
+    font-size:0.82rem;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-art{order:-1;max-width:300px;}
+    .section-head{grid-template-columns:1fr;}
+    .service-row{grid-template-columns:1fr;}
+    .process-list{grid-template-columns:1fr 1fr;row-gap:34px;}
+    .process-step:not(:last-child)::after{display:none;}
+    .catalog-grid{grid-template-columns:1fr 1fr;}
+    .values-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+  }
+  @media (max-width: 640px){
+    .wrap{padding:0 20px;}
+    .nav-links{display:none;}
+    .menu-toggle{display:flex;}
+    .nav-phone{display:none;}
+    .hero{padding:44px 0 60px;}
+    section{padding:56px 0;}
+    .process-list{grid-template-columns:1fr;}
+    .catalog-grid{grid-template-columns:1fr;}
+    body.menu-open .nav-links{
+      display:flex;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      flex-direction:column;
+      background:var(--ink);
+      border-bottom:1px solid var(--line);
+      padding:20px 20px 26px;
+      gap:18px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brand">Дверн<span>о</span>й Мастер</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#services">Услуги</a>
+      <a href="#process">Как работаем</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <div class="nav-right">
+      <a href="tel:+70000000000" class="nav-phone">+7 (000) 000-00-00</a>
+      <a href="#contact" class="btn btn-primary">Оставить заявку</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ---------- HERO ---------- -->
+  <section class="hero" style="border-top:none;padding-top:64px;">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="hero-eyebrow reveal r1">Установка и ремонт</div>
+        <h1 class="reveal r2">Надёжные двери и замки для вашего дома</h1>
+        <p class="lead reveal r3">
+          Устанавливаем стальные и межкомнатные двери, врезаем и меняем
+          замки, выезжаем на вскрытие в день обращения.
+        </p>
+        <div class="hero-actions reveal r4">
+          <a href="#catalog" class="btn btn-primary">Подобрать дверь</a>
+          <a href="#contact" class="btn btn-ghost">Вызвать мастера</a>
+        </div>
+        <p class="hero-note reveal r4">
+          <strong>Выезд мастера в день обращения.</strong><br>
+          Гарантия на монтаж — 2 года.
+        </p>
+      </div>
+      <div class="hero-art reveal r3">
+        <div class="master-grid">
+          <figure class="tall master-tall-wrap">
+            <svg viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="340" fill="#1c1810"/>
+              <!-- door frame -->
+              <rect x="150" y="40" width="110" height="260" fill="none" stroke="#332b1c" stroke-width="2"/>
+              <rect x="150" y="40" width="110" height="260" fill="none" stroke="#8e7040" stroke-width="1"/>
+              <circle cx="238" cy="172" r="4" fill="none" stroke="#c39a5b" stroke-width="1.6"/>
+              <!-- master figure -->
+              <circle cx="95" cy="120" r="16" fill="none" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M95 136 L95 210" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M95 150 L60 190" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M95 150 L138 178" stroke="#c39a5b" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M95 210 L70 280" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M95 210 L118 280" stroke="#efe7d6" stroke-width="2"/>
+              <!-- drill in hand -->
+              <rect x="130" y="168" width="34" height="14" rx="2" fill="none" stroke="#c39a5b" stroke-width="1.8"/>
+              <path d="M164 175 L178 175" stroke="#c39a5b" stroke-width="1.8"/>
+              <!-- dashed motion lines -->
+              <g stroke="#6e7a82" stroke-width="1" stroke-dasharray="3 3">
+                <path d="M178 168 L196 160"/>
+                <path d="M178 182 L196 190"/>
+              </g>
+            </svg>
+            <figcaption><strong>Монтаж</strong>Установка входных дверей</figcaption>
+          </figure>
+          <figure class="master-square-wrap">
+            <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="220" fill="#1c1810"/>
+              <rect x="40" y="20" width="90" height="180" fill="none" stroke="#332b1c" stroke-width="2"/>
+              <rect x="40" y="20" width="90" height="180" fill="none" stroke="#8e7040" stroke-width="1"/>
+              <!-- hinge marks -->
+              <rect x="36" y="55" width="8" height="18" fill="#c39a5b"/>
+              <rect x="36" y="155" width="8" height="18" fill="#c39a5b"/>
+              <!-- master crouching adjusting hinge -->
+              <circle cx="185" cy="75" r="15" fill="none" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M185 90 L185 140" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M185 105 L150 130" stroke="#c39a5b" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M185 105 L215 100" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M185 140 L165 195" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M185 140 L212 190" stroke="#efe7d6" stroke-width="2"/>
+              <!-- screwdriver at hinge -->
+              <path d="M130 132 L150 130" stroke="#c39a5b" stroke-width="2.2" stroke-linecap="round"/>
+              <circle cx="130" cy="132" r="3" fill="#c39a5b"/>
+            </svg>
+            <figcaption><strong>Подгонка</strong>Регулировка полотна</figcaption>
+          </figure>
+          <figure class="master-square-wrap">
+            <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="220" fill="#1c1810"/>
+              <rect x="55" y="18" width="100" height="184" fill="none" stroke="#332b1c" stroke-width="2"/>
+              <rect x="55" y="18" width="100" height="184" fill="none" stroke="#8e7040" stroke-width="1"/>
+              <!-- measuring tape line -->
+              <line x1="55" y1="205" x2="155" y2="205" stroke="#6e7a82" stroke-width="1"/>
+              <line x1="55" y1="198" x2="55" y2="212" stroke="#6e7a82" stroke-width="1"/>
+              <line x1="155" y1="198" x2="155" y2="212" stroke="#6e7a82" stroke-width="1"/>
+              <text x="105" y="216" fill="#a99c82" font-size="10" font-family="Inter, sans-serif" text-anchor="middle">900 мм</text>
+              <!-- master with tape measure -->
+              <circle cx="210" cy="70" r="15" fill="none" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M210 85 L210 150" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M210 100 L175 135" stroke="#c39a5b" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M210 100 L240 90" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M210 150 L188 200" stroke="#efe7d6" stroke-width="2"/>
+              <path d="M210 150 L232 200" stroke="#efe7d6" stroke-width="2"/>
+              <!-- tape measure device -->
+              <rect x="168" y="128" width="16" height="14" rx="2" fill="none" stroke="#c39a5b" stroke-width="1.6"/>
+              <path d="M155 135 L168 134" stroke="#c39a5b" stroke-width="1.4"/>
+            </svg>
+            <figcaption><strong>Замер</strong>Точный расчёт проёма</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- SERVICES ---------- -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Услуги</h2>
+        <p>От установки входной двери до срочного вскрытия — берём на себя
+          весь цикл работ, от замера до гарантии.</p>
+      </div>
+
+      <div class="service-row">
+        <div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="2" width="14" height="20" rx="1"/><circle cx="15" cy="12" r="1"/></svg>
+          <h3>Входные двери</h3>
+        </div>
+        <p class="desc">Стальные и металлические двери с установкой под ключ.
+          Подбираем модель по бюджету и требованиям к шумо- и теплоизоляции.</p>
+      </div>
+
+      <div class="service-row">
+        <div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3" width="12" height="18" rx="1"/><circle cx="12" cy="12" r="1"/><path d="M16 8 L21 8 L21 16 L16 16"/></svg>
+          <h3>Межкомнатные двери</h3>
+        </div>
+        <p class="desc">Ставим двери из массива, шпона и экошпона.
+          Подгоняем полотно под проём и регулируем фурнитуру.</p>
+      </div>
+
+      <div class="service-row">
+        <div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10 V7 a4 4 0 0 1 8 0 v3"/><circle cx="12" cy="15" r="1.4"/></svg>
+          <h3>Замки и фурнитура</h3>
+        </div>
+        <p class="desc">Врезаем, меняем и ремонтируем замки любой сложности —
+          от накладных до многоточечных систем запирания.</p>
+      </div>
+
+      <div class="service-row">
+        <div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7 v6 l4 2"/></svg>
+          <h3>Аварийное вскрытие</h3>
+        </div>
+        <p class="desc">Открываем дверь без повреждений, если ключ потерян,
+          сломался в замке или заклинило личинку.</p>
+      </div>
+
+      <div class="service-row">
+        <div>
+          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="3" width="10" height="18" rx="2"/><line x1="12" y1="17" x2="12" y2="17.01"/></svg>
+          <h3>Домофоны и доводчики</h3>
+        </div>
+        <p class="desc">Устанавливаем домофоны и глазки, настраиваем доводчики
+          на плавное и бесшумное закрывание двери.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- PROCESS ---------- -->
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Как мы работаем</h2>
+        <p>Четыре шага от заявки до готовой двери или замка с гарантией.</p>
+      </div>
+      <div class="process-list">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <h3>Заявка</h3>
+          <p>Оставляете заявку по телефону или на сайте и рассказываете
+            о задаче.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <h3>Замер</h3>
+          <p>Мастер выезжает, снимает размеры проёма и оценивает объём
+            работ на месте.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <h3>Монтаж</h3>
+          <p>Устанавливаем дверь или меняем замок в срок, согласованный
+            заранее.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <h3>Гарантия</h3>
+          <p>Выдаём гарантию на монтаж и остаёмся на связи по любым
+            вопросам.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- CATALOG ---------- -->
+  <section id="catalog">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Примеры дверей</h2>
+        <p>Три модели для ориентира по цене — точную стоимость считаем
+          после замера.</p>
+      </div>
+      <div class="catalog-grid">
+
+        <div class="door-card">
+          <svg viewBox="0 0 160 180" fill="none">
+            <rect x="30" y="10" width="100" height="160" rx="1" stroke="currentColor" stroke-width="2"/>
+            <rect x="42" y="22" width="76" height="136" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <circle cx="108" cy="92" r="4" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+          <h3>«Страж»</h3>
+          <p class="spec">Входная стальная дверь, двойной контур
+            уплотнения, тепло- и шумоизоляция.</p>
+          <div class="price-row">
+            <span class="price">от 24 900 ₽</span>
+            <a href="#contact" class="link-ghost">Уточнить</a>
+          </div>
+        </div>
+
+        <div class="door-card">
+          <svg viewBox="0 0 160 180" fill="none">
+            <rect x="34" y="10" width="92" height="160" rx="1" stroke="currentColor" stroke-width="2"/>
+            <line x1="34" y1="60" x2="126" y2="60" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <line x1="34" y1="120" x2="126" y2="120" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <circle cx="104" cy="92" r="4" stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+          <h3>«Комфорт»</h3>
+          <p class="spec">Межкомнатная дверь, экошпон, три цвета на выбор,
+            с коробкой и наличниками.</p>
+          <div class="price-row">
+            <span class="price">от 8 400 ₽</span>
+            <a href="#contact" class="link-ghost">Уточнить</a>
+          </div>
+        </div>
+
+        <div class="door-card">
+          <svg viewBox="0 0 160 180" fill="none">
+            <rect x="30" y="10" width="100" height="160" rx="1" stroke="currentColor" stroke-width="2"/>
+            <rect x="42" y="22" width="76" height="136" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <rect x="94" y="78" width="18" height="30" rx="2" stroke="currentColor" stroke-width="1.6"/>
+            <circle cx="103" cy="93" r="3" stroke="currentColor" stroke-width="1.4"/>
+          </svg>
+          <h3>«Гарант»</h3>
+          <p class="spec">Входная дверь с усиленным многоточечным замком
+            и защитой от взлома.</p>
+          <div class="price-row">
+            <span class="price">от 32 500 ₽</span>
+            <a href="#contact" class="link-ghost">Уточнить</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- VALUES ---------- -->
+  <section id="values">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Почему обращаются к нам</h2>
+        <p>Мы только выходим на рынок — и поэтому особенно внимательны
+          к каждому заказу.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-item">
+          <svg class="value-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7 v6 l4 2"/></svg>
+          <h3>Приезжаем быстро</h3>
+          <p>Оцениваем объём работ и стоимость в день обращения,
+            без долгого ожидания.</p>
+        </div>
+        <div class="value-item">
+          <svg class="value-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 L20 7 V12 C20 17 16.5 20.5 12 21 C7.5 20.5 4 17 4 12 V7 Z"/></svg>
+          <h3>Работаем без посредников</h3>
+          <p>Устанавливает и ремонтирует тот же мастер, с которым вы
+            обсуждали задачу.</p>
+        </div>
+        <div class="value-item">
+          <svg class="value-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10 V7 a4 4 0 0 1 8 0 v3"/></svg>
+          <h3>Даём гарантию</h3>
+          <p>Гарантия на монтаж и подобранную фурнитуру — фиксируем
+            её письменно.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- CONTACT ---------- -->
+  <section id="contact" style="border-bottom:none;">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Оставить заявку</h2>
+        <p>Расскажите, что нужно — перезвоним и согласуем время
+          замера или выезда мастера.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="plate">
+          <h3>Контакты</h3>
+          <div class="plate-row">
+            <div class="plate-label">Телефон</div>
+            <div class="plate-value">+7 (000) 000-00-00</div>
+          </div>
+          <div class="plate-row">
+            <div class="plate-label">Часы работы</div>
+            <div class="plate-value">Пн–Сб, 9:00–20:00</div>
+          </div>
+          <div class="plate-row">
+            <div class="plate-label">Регион выезда</div>
+            <div class="plate-value">Город и область</div>
+          </div>
+          <div class="plate-row">
+            <div class="plate-label">Почта</div>
+            <div class="plate-value">info@dvernoy-master.ru</div>
+          </div>
+        </div>
+
+        <form id="contactForm">
+          <div class="form-row">
+            <div>
+              <label for="name">Имя</label>
+              <input id="name" name="name" type="text" required>
+            </div>
+            <div>
+              <label for="phone">Телефон</label>
+              <input id="phone" name="phone" type="tel" required>
+            </div>
+          </div>
+          <div>
+            <label for="message">Что нужно сделать</label>
+            <textarea id="message" name="message" placeholder="Например: заменить замок во входной двери"></textarea>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary">Отправить заявку</button>
+            <p class="form-status" id="formStatus">Заявка отправлена. Перезвоним в течение часа.</p>
+          </div>
+          <p class="form-note">Отправляя заявку, вы соглашаетесь на обработку
+            контактных данных для связи с вами.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <a href="#top" class="brand">Дверн<span>о</span>й Мастер</a>
+    <div class="footer-links">
+      <a href="#services">Услуги</a>
+      <a href="#process">Как работаем</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#contact">Контакты</a>
+    </div>
+    <div class="footer-copy">© 2026 Дверной Мастер</div>
+  </div>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  menuToggle.addEventListener('click', () => {
+    const isOpen = document.body.classList.toggle('menu-open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  document.getElementById('navLinks').addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') {
+      document.body.classList.remove('menu-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  const form = document.getElementById('contactForm');
+  const status = document.getElementById('formStatus');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    status.classList.add('show');
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
